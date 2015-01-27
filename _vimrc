@@ -5,6 +5,7 @@
 filetype off           " required!
 filetype plugin on
 filetype indent on     " 
+set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
 
 if has("unix") 
 	set rtp+=~/.vim/bundle/vundle/
