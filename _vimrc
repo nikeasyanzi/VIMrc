@@ -23,7 +23,9 @@ endif
 " let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 Bundle 'The-NERD-tree'
-Bundle 'taglist.vim'
+"Bundle 'taglist.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'chu-/Trinity'
 "syntax checker
 "Bundle 'scrooloose/syntastic' 
 "Insert or delete brackets, parens, quotes in pair.
@@ -32,6 +34,9 @@ Bundle 'jiangmiao/auto-pairs'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle "tomtom/tlib_vim"
 Bundle "garbas/vim-snipmate"
+Bundle "bling/vim-airline"
+set laststatus=2
+let g:airline_theme='light'
 
 Bundle 'L9'
 "let g:acp_behaviorSnipmateLength = 1	uncomment it will cause error while typeing word initiated with capatalized letter
@@ -42,7 +47,8 @@ Bundle 'othree/vim-autocomplpop'
 "Bundle 'omnicppcomplete'
 
 "Trnity : the Trinity of taglist, NERDtree and SrcExpl: an IDE works like Source Insight 
-Bundle 'Trinity'
+"Bundle 'Trinity'
+
 Bundle 'brookhong/cscope.vim' 
 Bundle 'srcexpl'
 
@@ -364,7 +370,7 @@ let g:SrcExpl_gobackKey = "<SPACE>"
 " " // are using buffers. And you need add their bufname into the list below 
 " // according to the command ":buffers!" 
 let g:SrcExpl_pluginList = [ 
-			\ "__Tag_List__", 
+			\ "__Tag_bar__", 
 			\ "_NERD_tree_", 
 			\ "Source_Explorer" 
 			\ ] 
@@ -392,8 +398,8 @@ nmap <F8>  :TrinityToggleAll<CR>
 "" Open and close the Source Explorer separately 
 nmap <F9>  :TrinityToggleSourceExplorer<CR> 
 
-" Open and close the Taglist separately 
-nmap <F10> :TrinityToggleTagList<CR> 
+" Open and close the Tagbar separately 
+nmap <F10> :TrinityToggleTagbar<CR> 
 "
 " Open and close the NERD Tree separately 
 nmap <F11> :TrinityToggleNERDTree<CR>  "
