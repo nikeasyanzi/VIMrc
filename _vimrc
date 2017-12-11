@@ -1,73 +1,130 @@
-﻿"source $VIMRUNTIME/vimrc_example.vim
-"source $VIMRUNTIME/mswin.vim
+﻿
+"this is the MAINLINE=======================
+"To do
+"1. adopt 'YCM' in Linux and Win to replace other autopop 
+"2. Is YCM syntax checker is better than 'syntastic'??
+"
 
+"source $VIMRUNTIME/vimrc_example.vim
+"source $VIMRUNTIME/mswin.vim
 "filetype detection
-filetype off           " required!
+filetype off           " required for vundle
 filetype plugin on
 filetype indent on     " 
 set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936
 
+" please make sure rtp and the parameter passed to begin() are the same
 if has("unix") 
-	set rtp+=~/.vim/bundle/vundle/
-	call vundle#rc()
+	set rtp+=~/.vim/bundle/Vundle.vim
+	call vundle#begin()
 	set tags+=$HOME/.vim/tags/stl_tags
 	let g:vimrc_iswindows=0
 else
-	set rtp+=$VIM/bundle/vundle/
-	call vundle#rc('$VIM/bundle/') 
+	set rtp+=$VIM/bundle/Vundle.vim
+	call vundle#begin('$VIM/bundle/Vundle.vim') 
 	set tags+=$VIM/vimfiles/tags/stl_tags
 	let g:vimrc_iswindows=1
 	behave mswin
 endif
 
-" let Vundle manage Vundle
-Bundle 'gmarik/vundle'
-Bundle 'The-NERD-tree'
-"Bundle 'taglist.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'chu-/Trinity'
-"syntax checker
-"Bundle 'scrooloose/syntastic' 
+
+"==let Vundle manage Vundle==
+Plugin 'VundleVim/Vundle.vim'
+
+Plugin 'The-NERD-tree'
+"==tagbar:generate code tag, but it needs 'Ctags'!!!
+Plugin 'majutsushi/tagbar'
+
+"==Trnity : the Trinity of taglist, NERDtree and SrcExpl: an IDE works like Source Insight== 
+Plugin 'chu-/Trinity'
+"==syntax checker overlap with YCM==
+Plugin 'scrooloose/syntastic' 
+let g:syntastic_c_checkers=['make']
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open=1
+let g:syntastic_enable_signs=1
+let g:syntastic_error_symbol = '?'
+let g:syntastic_warning_symbol = '!'
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*gbar
+
+"==Autoformat, you need install clang-format package first. 
+"rhysd/vim-clang-format is another alternatives for auto format
+if has("unix") 
+	Plugin 'Chiel92/vim-autoformat' "you need astyle
+	let g:formatterpath = ['/usr/bin/'] 
+else
+	"	let g:formatterpath = ['$VIM/vim74']
+endif
+
 "Insert or delete brackets, parens, quotes in pair.
-Bundle 'jiangmiao/auto-pairs'
+Plugin 'jiangmiao/auto-pairs'
 " SnipMate
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "garbas/vim-snipmate"
-Bundle "bling/vim-airline"
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'hari-rangarajan/CCTree'
+
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+"let g:UltiSnipsSnippetDirectories=['ultisnips_rep']
+"let g:UltiSnipsSnippetsDir = '~/.vim/bundle/vim-snippets/snippets'
+let g:UltiSnipsExpandTrigger = '<c-j>'
+let g:UltiSnipsListSnippets = '<C-l>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+let g:UltiSnipsUsePythonVersion = 3
+
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 set laststatus=2
 let g:airline_theme='light'
+  let g:airline#extensions#default#section_truncate_width = {
+      \ 'a': 10,
+      \ 'b': 5,
+      \ 'c': 60,
+      \ 'warning': 60,
+      \ 'y': 10,
+      \ 'z': 20,
+      \ }
 
-Bundle 'L9'
+let g:airline#extensions#default#layout = [
+			\ [ 'a', 'b', 'c' ],
+			\ [ 'warning', 'y', 'z' ],
+			\ ]
+
+Plugin 'L9'
 "let g:acp_behaviorSnipmateLength = 1	uncomment it will cause error while typeing word initiated with capatalized letter
 let g:acp_behaviorKeywordLength = 4
-Bundle 'honza/vim-snippets'
-" automatically opens popup menu for completions  othree/vim-autocomlpop and omicppcomplete are similar
-Bundle 'othree/vim-autocomplpop'
-"Bundle 'omnicppcomplete'
 
-"Trnity : the Trinity of taglist, NERDtree and SrcExpl: an IDE works like Source Insight 
-"Bundle 'Trinity'
+"==automatically opens popup menu for completions  
+" othree/vim-autocomlpop and omicppcomplete are similar and easy to
+"use without dependency. However, YCM is actually THE BEST!!! BUT you need 'cmake' and 'build-essential'
 
-Bundle 'brookhong/cscope.vim' 
-Bundle 'srcexpl'
+Plugin 'othree/vim-autocomplpop'
+"Plugin 'Valloric/YouCompleteMe'   
+"Plugin 'rdnetto/YCM-Generator'
+"let g:ycm_confirm_extra_conf=0 
+
+Plugin 'srcexpl'
 
 "official mirror of vim-script at github
 " =============================================
-"Bundle 'The-NERD-Commenter'   not work????
+
 " add author information
-"Bundle 'AuthorInfo'
+" Plugin 'header-info'
+" let g:header_field_author = 'Craig Yang'
+" let g:header_field_author_email = 'nikeasyanzi@yahoo.com.tw'
 
+call vundle#end()	"filetype detection should be off for vundle, so we re-enable the option after the vundle function 
+filetype plugin indent on	" required for UltiSnips
 
-"numbers.vim is a plugin for intelligently toggling line numbers
-"Bundle 'numbers.vim'
-
-
-"==Brief Bundles usage help========================================
-":BundleList          - list configured bundles
-":BundleInstall(!)    - install(update) bundles
-":BundleSearch(!) foo - search(or refresh cache first) for foo
-":BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"==Brief Plugins usage help========================================
+":PluginList          - list configured bundles
+":PluginInstall(!)    - install(update) bundles
+":PluginSearch(!) foo - search(or refresh cache first) for foo
+":PluginClean(!)      - confirm(or auto-approve) removal of unused bundles
 
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
@@ -135,17 +192,16 @@ set smartindent
 "set tenc=utf8
 
 "================ status line information =======================
-set laststatus=2
-set statusline=%4*%<\ %1*[%F]
-set statusline+=%4*\ %5*[%{&encoding}, " encoding
-set statusline+=%{&fileformat}%{\"\".((exists(\"+bomb\")\ &&\ &bomb)?\",BOM\":\"\").\"\"}]%m
-set statusline+=%4*%=\ %6*%y%4*\ %3*%l%4*,\ %3*%c%4*\ \<\ %2*%P%4*\ \>
-highlight User1 ctermfg=red
-highlight User2 term=underline cterm=underline ctermfg=green
-highlight User3 term=underline cterm=underline ctermfg=yellow
-highlight User4 term=underline cterm=underline ctermfg=white
-highlight User5 ctermfg=cyan
-highlight User6 ctermfg=white
+"set statusline=%4*%<\ %1*[%F]
+"set statusline+=%4*\ %5*[%{&encoding}, " encoding
+"set statusline+=%{&fileformat}%{\"\".((exists(\"+bomb\")\ &&\ &bomb)?\",BOM\":\"\").\"\"}]%m
+"set statusline+=%4*%=\ %6*%y%4*\ %3*%l%4*,\ %3*%c%4*\ \<\ %2*%P%4*\ \>
+"highlight User1 ctermfg=red
+"highlight User2 term=underline cterm=underline ctermfg=green
+"highlight User3 term=underline cterm=underline ctermfg=yellow
+"highlight User4 term=underline cterm=underline ctermfg=white
+"highlight User5 ctermfg=cyan
+"highlight User6 ctermfg=white
 
 "=============== folding ===============================
 "folding
@@ -171,7 +227,7 @@ if (has("gui_running"))
 	"set nowrap
 	"set guioptions+=b
 	colorscheme torte
-	set guifont=Monaco:h16
+	set guifont=Monaco:h14
 else
 	"some settings for console
 	"set wrap
@@ -240,76 +296,31 @@ map ws <C-w>-
 			\   else <BAR>
 			\       syntax enable <BAR>
 			\   endif <CR>
+" you need install 'cscope' first
+:map <F5> : call AddCsTag()<CR>
 
-:map <F5> : call Do_CsTag()<CR>
-
-function Do_CsTag()
-    let dir = getcwd()
-    if filereadable("tags")
-        if(g:iswindows==1)
-            let tagsdeleted=delete(dir."\\"."tags")
-        else
-            let tagsdeleted=delete("./"."tags")
-        endif
-        if(tagsdeleted!=0)
-            echohl WarningMsg | echo "Fail to do tags! I cannot delete the tags" | echohl None
-            return
-        endif
-    endif
-    if has("cscope")
-        silent! execute "cs kill -1"
-    endif
-    if filereadable("cscope.files")
-        if(g:iswindows==1)
-            let csfilesdeleted=delete(dir."\\"."cscope.files")
-        else
-            let csfilesdeleted=delete("./"."cscope.files")
-        endif
-        if(csfilesdeleted!=0)
-            echohl WarningMsg | echo "Fail to do cscope! I cannot delete the cscope.files" | echohl None
-            return
-        endif
-    endif
-    if filereadable("cscope.out")
-        if(g:iswindows==1)
-            let csoutdeleted=delete(dir."\\"."cscope.out")
-        else
-            let csoutdeleted=delete("./"."cscope.out")
-        endif
-        if(csoutdeleted!=0)
-            echohl WarningMsg | echo "Fail to do cscope! I cannot delete the cscope.out" | echohl None
-            return
-        endif
-    endif
-    if(executable('ctags'))
-        "silent! execute "!ctags -R --c-types=+p --fields=+S *"
-        silent! execute "!ctags -R --c++-kinds=+p --fields=+iaS --extra=+q --exclude=.svn."
-    endif
-    if(executable('cscope') && has("cscope") )
-        if(g:iswindows!=1)
-            silent! execute "!find . -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.cs' > cscope.files"
-        else
-            silent! execute "!dir /s/b *.c,*.cpp,*.h,*.cs >> cscope.files"
-        endif
-        silent! execute "!cscope -b"
-        execute "normal :"
-        if filereadable("cscope.out")
-            execute "cs add cscope.out"
-        endif
-    endif
+function LoadCsTag()
+	if filereadable("cscope.out")
+		execute "cs add cscope.out"
+	endif
 endfunction
 
-"function Do_CsTag()
-"	if(executable('cscope') && has("cscope") )
-"		silent! execute "!find . -name '*.h' -o -name '*.c' -o -name '*.cpp' -o -name '*.java' -o -name '*.cs' > cscope.out"
-"
-"		"silent! execute /"!dir /b *.c,*.cpp,*.h,*.java,*.cs >> cscope.files"
-"		silent! execute "!cscope -b"
-"		if filereadable("cscope.out")
-"			execute "cs add cscope.out"
-"		endif
-"	endif
-"endf
+function AddCsTag()
+	if(executable('cscope') && has("cscope") )
+		if(has('win32'))
+			silent! execute "!dir /b *.c,*.cpp,*.h,*.cs >> cscope.files"
+			silent! execute "!cscope -Rbk"
+		else
+			silent! execute "!find . -name "*.h" -o -name "*.c" -o -name "*.cpp" -o -name "*.m" -o -name "*.mm" -o -name "*.py" > cscope.files"
+			silent! execute "!cscope -Rbkq"
+		endif
+		silent! execute "call LoadCsTag()"
+		exec "redraw!"
+	endif
+endfunction
+set cst " to search cscope database and tag files
+set nocsverb " prompts whether a failure occurs when add a database 
+
 
 " CursorLine
 ":hi CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
@@ -351,23 +362,22 @@ func! CompileRunGcc()
 endfunc
 
 
-" // The switch of the Source Explorer 
+" The switch of the Source Explorer 
 "nmap <F8> :SrcExplToggle<CR> 
 "
-" " // Set the height of Source Explorer window 
+" Set the height of Source Explorer window 
 let g:SrcExpl_winHeight = 4
-" // Set 100 ms for refreshing the Source Explorer 
+" Set 100 ms for refreshing the Source Explorer 
 let g:SrcExpl_refreshTime = 100 
 "
-" " // Set "Enter" key to jump into the exact definition context 
+" Set 'Enter' key to jump into the exact definition context 
 let g:SrcExpl_jumpKey = "<ENTER>" 
 "
-" " // Set "Space" key for back from the definition context 
+" Set 'Space' key for back from the definition context 
 let g:SrcExpl_gobackKey = "<SPACE>" 
 "
-" " // In order to Avoid conflicts, the Source Explorer should know what
-" plugins 
-" " // are using buffers. And you need add their bufname into the list below 
+" " // In order to Avoid conflicts, the Source Explorer should know what plugins are using buffers.
+" And you need add their bufname into the list below 
 " // according to the command ":buffers!" 
 let g:SrcExpl_pluginList = [ 
 			\ "__Tag_bar__", 
@@ -385,11 +395,14 @@ let g:SrcExpl_isUpdateTags = 0
 
 " // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
 " //  create/update a tags file 
-let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-let g:SrcExpl_updateTagsCmd = "ctags -R --c++-kinds=+px --fields=+iaS --extra=+q"
+"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
+"let g:SrcExpl_updateTagsCmd = "ctags -R --c++-kinds=+px --fields=+iaS --extra=+q"
+let g:SrcExpl_updateTagsCmd = '-L cscope.files'
+
 "
 " // Set <F12> key for updating the tags file artificially 
 let g:SrcExpl_updateTagsKey = "<F12>"  
+
 " Trinity :
 "
 " " Open and close all the three plugins on the same time 
