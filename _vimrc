@@ -20,8 +20,11 @@ if has("unix")
 	set tags+=$HOME/.vim/tags/stl_tags
 	let g:vimrc_iswindows=0
 else
-	set rtp+=$VIM/bundle/Vundle.vim
-	call vundle#begin('$VIM/bundle/Vundle.vim') 
+	set rtp+=$Vim/bundle/Vundle.vim
+	"call vundle#begin('C:/Program Files (x86)/Vim/bundle/') 
+	call vundle#begin('$Vim/bundle/') 
+	"let g:vundle#bundle_dir='~/.vim/bundle/'
+	"let g:vundle#bundle_dir='$VIM/bundle/Vundle.vim'
 	set tags+=$VIM/vimfiles/tags/stl_tags
 	let g:vimrc_iswindows=1
 	behave mswin
@@ -30,8 +33,7 @@ endif
 
 "==let Vundle manage Vundle==
 Plugin 'VundleVim/Vundle.vim'
-
-Plugin 'The-NERD-tree'
+Plugin 'scrooloose/nerdtree'
 "==tagbar:generate code tag, but it needs 'Ctags'!!!
 Plugin 'majutsushi/tagbar'
 
@@ -64,7 +66,6 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
 Plugin 'hari-rangarajan/CCTree'
-
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
