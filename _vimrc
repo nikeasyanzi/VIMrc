@@ -55,30 +55,30 @@ Plug 'junegunn/vim-easy-align'
 call plug#end()
 
 
-" ÀÉ®×½s½X
+" æª”æ¡ˆç·¨ç¢¼
 set encoding=utf-8
 set fileencodings=utf-8,cp950
  
-" ½s¿è³ß¦n³]©w                                                                                                                                                                                                     
-syntax on        " »yªk¤W¦âÅã¥Ü
-set nocompatible " VIM ¤£¨Ï¥Î©M VI ¬Û®eªº¼Ò¦¡
-" set ai           " ¦Û°ÊÁY±Æ
-set shiftwidth=4 " ³]©wÁY±Æ¼e«× = 4 
-set tabstop=4    " tab ªº¦r¤¸¼Æ
+" ç·¨è¼¯å–œå¥½è¨­å®š                                                                                                                                                                                                     
+syntax on        " èªæ³•ä¸Šè‰²é¡¯ç¤º
+set nocompatible " VIM ä¸ä½¿ç”¨å’Œ VI ç›¸å®¹çš„æ¨¡å¼
+" set ai           " è‡ªå‹•ç¸®æ’
+set shiftwidth=4 " è¨­å®šç¸®æ’å¯¬åº¦ = 4 
+set tabstop=4    " tab çš„å­—å…ƒæ•¸
 set softtabstop=4
-set expandtab   " ¥Î space ¥N´À tab
+set expandtab   " ç”¨ space ä»£æ›¿ tab
  
-set ruler        " Åã¥Ü¥k¤U¨¤³]©w­È
-set backspace=2  " ¦b insert ¤]¥i¥Î backspace
-set ic           " ³]©w·j´M©¿²¤¤j¤p¼g
-set ru           " ²Ä´X¦æ²Ä´X­Ó¦r
-set hlsearch     " ³]©w°ª«G«×Åã¥Ü·j´Mµ²ªG
-set incsearch    " ¦bÃöÁä¦rÁÙ¨S§¹¥ş¿é¤J§¹²¦«e´NÅã¥Üµ²ªG
-set smartindent  " ³]©w smartindent
-set confirm      " ¾Ş§@¹Lµ{¦³½Ä¬ğ®É¡A¥H©ú½Tªº¤å¦r¨Ó¸ß°İ
-set history=100  " «O¯d 100 ­Ó¨Ï¥Î¹Lªº«ü¥O
-set cursorline   " Åã¥Ü¥Ø«eªº´å¼Ğ¦ì¸m
-set ruler        " ³]©w¤Ø³W
+set ruler        " é¡¯ç¤ºå³ä¸‹è§’è¨­å®šå€¼
+set backspace=2  " åœ¨ insert ä¹Ÿå¯ç”¨ backspace
+set ic           " è¨­å®šæœå°‹å¿½ç•¥å¤§å°å¯«
+set ru           " ç¬¬å¹¾è¡Œç¬¬å¹¾å€‹å­—
+set hlsearch     " è¨­å®šé«˜äº®åº¦é¡¯ç¤ºæœå°‹çµæœ
+set incsearch    " åœ¨é—œéµå­—é‚„æ²’å®Œå…¨è¼¸å…¥å®Œç•¢å‰å°±é¡¯ç¤ºçµæœ
+set smartindent  " è¨­å®š smartindent
+set confirm      " æ“ä½œéç¨‹æœ‰è¡çªæ™‚ï¼Œä»¥æ˜ç¢ºçš„æ–‡å­—ä¾†è©¢å•
+set history=100  " ä¿ç•™ 100 å€‹ä½¿ç”¨éçš„æŒ‡ä»¤
+set cursorline   " é¡¯ç¤ºç›®å‰çš„æ¸¸æ¨™ä½ç½®
+set ruler        " è¨­å®šå°ºè¦
 set nu
 set laststatus=2
 set statusline=%4*%<\%m%<[%f\%r%h%w]\ [%{&ff},%{&fileencoding},%Y]%=\[Position=%l,%v,%p%%]
@@ -108,6 +108,7 @@ set laststatus=2
 " enable powerline-fonts
 let g:airline_powerline_fonts = 1
 
+set listchars=eol:Â¬,tab:>Â·,trail:~,extends:>,precedes:<,space:Â·
 
 "===============================
 "   Detail plugin setting for syntax, code complete
@@ -157,7 +158,6 @@ let g:ycm_semantic_triggers =  {
 
 "nmap \c :YcmCompleter GoTo<CR>
 nmap <C-\>t :YcmCompleter GetType<CR>
-
 
 
 
