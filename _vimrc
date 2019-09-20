@@ -1,17 +1,14 @@
 
 if has("unix")
-
-else
-	call plug#begin('~/.vim/plugged')
-	
     " tell VIM where to find tags
     set tags+=$HOME/.vim/tags/stl_tags,./tags,./TAGS,tags;~,TAGS;~
 	let g:vimrc_iswindows=0
-endif
 	
+else
     set tags+=$VIM/vimfiles/tags/stl_tags,./tags,./TAGS,tags;~,TAGS;~
 	let g:vimrc_iswindows=1
 	behave mswin
+endif
 
 call plug#begin('~/.vim/plugged')
 
@@ -49,8 +46,8 @@ Plug 'Valloric/YouCompleteMe'
 " VIM theme
 Plug 'whatyouhide/vim-gotham'
 
-" Python code fortmatter
-Plug 'python/black'
+" General formatter
+Plug 'Chiel92/vim-autoformat'
 
 " alignment plugin
 Plug 'junegunn/vim-easy-align'
@@ -127,5 +124,40 @@ let g:syntastic_warning_symbol = '!'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+" config for ycm
+let g:ycm_server_python_interpreter='/usr/bin/python3.5'
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_auto_trigger = 1
+let g:ycm_min_num_of_chars_for_completion = 3
+let g:ycm_key_invoke_completion = '<F3>'
+" This would be slow if the tag file is from network
+let g:ycm_collect_identifiers_from_tags_files = 1
+" The followings are for debugging
+" let g:ycm_server_use_vim_stdout = 1
+" let g:ycm_server_log_level = 'debug'
+let g:ycm_semantic_triggers =  {
+  \   'c' : ['->', '.', '::'],
+  \   'objc' : ['->', '.', 're!\[[_a-zA-Z]+\w*\s', 're!^\s*[^\W\d]\w*\s',
+  \             're!\[.*\]\s'],
+  \   'ocaml' : ['.', '#'],
+  \   'cpp,objcpp' : ['->', '.', '::'],
+  \   'perl' : ['->'],
+  \   'php' : ['->', '::'],
+  \   'cs,java,javascript,typescript,d,python,perl6,scala,vb,elixir,go' : ['.'],
+  \   'ruby' : ['.', '::'],
+  \   'lua' : ['.', ':'],
+  \   'erlang' : [':'],
+  \ }
+
+"nmap \c :YcmCompleter GoTo<CR>
+nmap <C-\>t :YcmCompleter GetType<CR>
+
+
 
 
