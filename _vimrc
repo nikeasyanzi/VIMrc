@@ -35,8 +35,8 @@ Plug 'vim-syntastic/syntastic'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " to generate configfile for YOU COMPLETEME
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 Plug 'Valloric/YouCompleteMe'
+" Plug 'Yggdroot/indentLine'
 
 
 "===============================
