@@ -12,7 +12,6 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
-
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 "===============================
@@ -20,10 +19,14 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 "===============================
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
+" VIM theme
 Plug 'vim-airline/vim-airline'
+Plug 'whatyouhide/vim-gotham'
+Plug 'vim-airline/vim-airline-themes'
 
-let g:airline_theme='light'
-  let g:airline#extensions#default#section_truncate_width = {
+let g:airline_theme='gotham'
+let g:airline_theme='simple'
+let g:airline#extensions#default#section_truncate_width = {
       \ 'a': 10,
       \ 'b': 5,
       \ 'c': 60,
@@ -53,8 +56,10 @@ Plug 'vim-syntastic/syntastic'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " to generate configfile for YOU COMPLETEME
-Plug 'Valloric/YouCompleteMe'
+" Plug 'Valloric/YouCompleteMe'
 " Plug 'Yggdroot/indentLine'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 "tagbar:generate code tag, but it needs 'Ctags'!!!
 Plug 'majutsushi/tagbar'
@@ -62,14 +67,24 @@ Plug 'majutsushi/tagbar'
 "===============================
 "   go
 "===============================
-#Plugin 'nsf/gocode'
+Plug 'nsf/gocode'
+
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
+
 
 "===============================
-"   Theme, Style and formatter
+"   Style and formatter
 "===============================
 
-" VIM theme
-Plug 'whatyouhide/vim-gotham'
 
 " General formatter
 Plug 'Chiel92/vim-autoformat'
@@ -149,7 +164,6 @@ set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
 "Autoformat, you need install clang-format package first. 
 "rhysd/vim-clang-format is another alternatives for auto format
 if has("unix") 
-	Plugin 'Chiel92/vim-autoformat'
 	let g:formatterpath = ['/usr/bin/']
 else
 	"let g:formatterpath = ['$VIM/vim74']
@@ -226,62 +240,5 @@ let g:ycm_semantic_triggers =  {
   \ }
 
 "nmap \c :YcmCompleter GoTo<CR>
-nmap <C-\>t :YcmCompleter GetType<CR>
-
-
-" The switch of the Source Explorer 
-"nmap <F8> :SrcExplToggle<CR> 
-"
-" Set the height of Source Explorer window 
-let g:SrcExpl_winHeight = 4
-" Set 100 ms for refreshing the Source Explorer 
-let g:SrcExpl_refreshTime = 100 
-"
-" Set 'Enter' key to jump into the exact definition context 
-let g:SrcExpl_jumpKey = "<ENTER>" 
-"
-" Set 'Space' key for back from the definition context 
-let g:SrcExpl_gobackKey = "<SPACE>" 
-"
-" " // In order to Avoid conflicts, the Source Explorer should know what plugins are using buffers.
-" And you need add their bufname into the list below 
-" // according to the command ":buffers!" 
-let g:SrcExpl_pluginList = [ 
-			\ "__Tag_bar__", 
-			\ "_NERD_tree_", 
-			\ "Source_Explorer" 
-			\ ] 
-
-"" // Enable/Disable the local definition searching, and note that this is not 
-" // guaranteed to work, the Source Explorer doesn't check the syntax for now. 
-" " // It only searches for a match with the keyword according to command 'gd' 
-let g:SrcExpl_searchLocalDef = 1 
-"
-"" // Do not let the Source Explorer update the tags file when opening 
-let g:SrcExpl_isUpdateTags = 0 
-
-" // Use 'Exuberant Ctags' with '--sort=foldcase -R .' or '-L cscope.files' to 
-" //  create/update a tags file 
-"let g:SrcExpl_updateTagsCmd = "ctags --sort=foldcase -R ." 
-"let g:SrcExpl_updateTagsCmd = "ctags -R --c++-kinds=+px --fields=+iaS --extra=+q"
-let g:SrcExpl_updateTagsCmd = '-L cscope.files'
-
-"
-" // Set <F12> key for updating the tags file artificially 
-let g:SrcExpl_updateTagsKey = "<F12>"  
-" Trinity :
-"
-" " Open and close all the three plugins on the same time 
-nmap <F8>  :TrinityToggleAll<CR> 
-
-"" Open and close the Source Explorer separately 
-nmap <F9>  :TrinityToggleSourceExplorer<CR> 
-
-" Open and close the Tagbar separately 
-nmap <F10> :TrinityToggleTagbar<CR> 
-"
-" Open and close the NERD Tree separately 
-nmap <F11> :TrinityToggleNERDTree<CR>  "
-
-
+"nmap <C-\>t :YcmCompleter GetType<CR>
 
