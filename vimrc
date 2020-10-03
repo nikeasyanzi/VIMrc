@@ -12,6 +12,7 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 
 "===============================
@@ -19,14 +20,12 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 "===============================
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 
-" VIM theme
 Plug 'vim-airline/vim-airline'
-Plug 'whatyouhide/vim-gotham'
-Plug 'vim-airline/vim-airline-themes'
 
-let g:airline_theme='gotham'
-let g:airline_theme='simple'
-let g:airline#extensions#default#section_truncate_width = {
+
+
+let g:airline_theme='light'
+  let g:airline#extensions#default#section_truncate_width = {
       \ 'a': 10,
       \ 'b': 5,
       \ 'c': 60,
@@ -55,36 +54,25 @@ Plug 'vim-syntastic/syntastic'
 " Code pattern generation ex. for, if, else
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-" to generate configfile for YOU COMPLETEME
-" Plug 'Valloric/YouCompleteMe'
+" to generate configfile for YOU Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 " Plug 'Yggdroot/indentLine'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-
-"tagbar:generate code tag, but it needs 'Ctags'!!!
-Plug 'majutsushi/tagbar'
-
-"===============================
-"   go
-"===============================
-Plug 'nsf/gocode'
-
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \]
-\}
 
 
 "===============================
-"   Style and formatter
+"   Support for GOlang
+"===============================
+#Plugin 'nsf/gocode'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Remove this line when vim is updated to 8.0
+let g:go_version_warning = 0 
+
+"===============================
+"   Theme, Style and formatter
 "===============================
 
+" VIM theme
+Plug 'whatyouhide/vim-gotham'
 
 " General formatter
 Plug 'Chiel92/vim-autoformat'
@@ -96,14 +84,16 @@ call plug#end()
 
 
 " 檔案編碼
-filetype off           " required!
-filetype plugin on
-filetype indent on     " 
 set encoding=utf-8
+scriptencoding utf-8
+set fileencodings=utf-8,cp950
 set fileencodings=utf-8,gb2312,ucs-bom,euc-cn,euc-tw,gb18030,gbk,cp936,cp950
  
-" 編輯喜好設定                                                                                                                                                                                                     
+" 編輯喜好設定
+filetype off
+filetype plugin indent off
 syntax on        " 語法上色顯示
+
 set nocompatible " VIM 不使用和 VI 相容的模式
 " set ai           " 自動縮排
 set shiftwidth=4 " 設定縮排寬度 = 4 
@@ -145,7 +135,6 @@ else
 	"set wrap
 	set term=xterm-256color
 	colorscheme koehler
-	"colorscheme torte
 endif
 
 
@@ -155,50 +144,20 @@ set laststatus=2
 " enable powerline-fonts
 let g:airline_powerline_fonts = 1
 
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:·
+
+if has("patch-7.4.710")
+    listchars=eol:~,tab:>.,trail:~,extends:>,precedes:<,space:·
+else
+    listchars=eol:~,tab:>.,trail:~,extends:>,precedes:<
+endif
+
 
 "===============================
 "   Detail plugin setting for syntax, code complete
 "===============================
 
-"Autoformat, you need install clang-format package first. 
-"rhysd/vim-clang-format is another alternatives for auto format
-if has("unix") 
-	let g:formatterpath = ['/usr/bin/']
-else
-	"let g:formatterpath = ['$VIM/vim74']
-endif
+" recommend setting for 
 
-set diffexpr=MyDiff()
-function MyDiff()
-	let opt = '-a --binary '
-	if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-	if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-	let arg1 = v:fname_in
-	if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-	let arg2 = v:fname_new
-	if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-	let arg3 = v:fname_out
-	if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-	let eq = ''
-	if $VIMRUNTIME =~ ' '
-		if &sh =~ '\<cmd'
-			let cmd = '""' . $VIMRUNTIME . '\diff"'
-			let eq = '"'
-		else
-			let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-		endif
-	else
-		let cmd = $VIMRUNTIME . '\diff'
-	endif
-	silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
-
-set cindent
-set autoindent			" auto indentation
-set copyindent			" copy the previous indentation on autoindenting
-
-" recommend setting for syntastic
 let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open=1
@@ -240,5 +199,5 @@ let g:ycm_semantic_triggers =  {
   \ }
 
 "nmap \c :YcmCompleter GoTo<CR>
-"nmap <C-\>t :YcmCompleter GetType<CR>
+nmap <C-\>t :YcmCompleter GetType<CR>
 
