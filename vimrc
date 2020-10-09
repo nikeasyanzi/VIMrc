@@ -19,10 +19,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git'
 "   VIM Appearence
 "===============================
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-
 Plug 'vim-airline/vim-airline'
-
-
 
 let g:airline_theme='light'
   let g:airline#extensions#default#section_truncate_width = {
@@ -38,9 +35,6 @@ let g:airline#extensions#default#layout = [
 			\ [ 'a', 'b', 'c' ],
 			\ [ 'warning', 'y', 'z' ],
 			\ ]
-
-
-
 
 " A command line fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -58,14 +52,14 @@ Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'Valloric/YouCompleteMe'
 " Plug 'Yggdroot/indentLine'
 
-
 "===============================
 "   Support for GOlang
 "===============================
-#Plugin 'nsf/gocode'
 Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 " Remove this line when vim is updated to 8.0
 let g:go_version_warning = 0 
+Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
+Plug 'stephpy/vim-yaml'
 
 "===============================
 "   Theme, Style and formatter
@@ -155,9 +149,14 @@ endif
 "===============================
 "   Detail plugin setting for syntax, code complete
 "===============================
+" setting for yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+let g:ale_lint_on_text_changed = 'never'
 
-" recommend setting for 
-
+" recommend setting for syntastic
 let g:syntastic_c_checkers=['make']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open=1
