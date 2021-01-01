@@ -64,6 +64,17 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "tagbar:generate code tag, but it needs 'Ctags'!!!
 Plug 'majutsushi/tagbar'
 
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
+
 "===============================
 "   Support for GOlang
 "===============================
@@ -79,16 +90,6 @@ let g:go_def_mapping_enabled = 0
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'stephpy/vim-yaml'
 
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \]
-\}
 
 "===============================
 "   Style and formatter
