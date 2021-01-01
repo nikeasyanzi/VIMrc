@@ -10,7 +10,6 @@ else
     behave mswin
 endif
 
-
 call plug#begin('~/.vim/plugged')
 
 Plug 'https://github.com/junegunn/vim-github-dashboard.git'
@@ -79,6 +78,17 @@ let g:go_def_mapping_enabled = 0
 
 Plug 'nsf/gocode', { 'rtp': 'vim', 'do': '~/.vim/plugged/gocode/vim/symlink.sh' }
 Plug 'stephpy/vim-yaml'
+
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
 
 "===============================
 "   Style and formatter
