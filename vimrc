@@ -55,26 +55,24 @@ Plug 'vim-syntastic/syntastic'
 " Code pattern generation ex. for, if, else
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
-" to generate configfile for YOU COMPLETEME
-" Plug 'Valloric/YouCompleteMe'
 " Plug 'Yggdroot/indentLine'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 
 "tagbar:generate code tag, but it needs 'Ctags'!!!
-Plug 'majutsushi/tagbar'
-
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \]
-\}
-
+"Plug 'majutsushi/tagbar'
+"
+"let g:tagbar_type_go = {
+"    \ 'ctagstype': 'go',
+"    \ 'kinds' : [
+"        \'p:package',
+"        \'f:function',
+"        \'v:variables',
+"        \'t:type',
+"        \'c:const'
+"    \]
+"\}
+"
 "===============================
 "   Support for GOlang
 "===============================
